@@ -203,6 +203,15 @@ var start = async (params) => {
     },
     taskOption
   );
+  
+ ///666积分补全。。。。
+    await scheduler.regTask(
+    "jflotteryad",
+    async (request) => {
+      await require("./jflotteryad.js").doTask(request, options);
+    },
+    taskOption
+  );
 
   // 首页-签到有礼-免费抽-拿苹果iPad Pro(摇一摇)
   await scheduler.regTask(
@@ -460,6 +469,29 @@ var start = async (params) => {
       await require("./taocan.js").doTask(request, options);
     },
     taskOption
+  );
+
+  // 首页-签到有礼-饿了么红包
+  await scheduler.regTask(
+    "dailyTurncards",
+    async (request) => {
+      await require("./dailyTurncards.js").doTask(request, options);
+    },
+    taskOption
+  );
+
+  //积分查询
+  await scheduler.regTask(
+    "fetchCoins",
+    async (request) => {
+      await require("./fetchCoins.js").doTask(request, options);
+    },
+    {
+      ...taskOption,
+      ...taskOption,
+      startTime: 21 * 3600,
+      ignoreRelay: true,
+    }
   );
 };
 module.exports = {
